@@ -1,134 +1,126 @@
 <?php
+session_start();
 
+require_once('functions.php');
 require_once('dbconnection.php');
+require_once('includes/init.php');
+
+$password = $_SESSION['password'];
+$admin_data = get_admin($conn, $password);
+if ($password != $admin_data['password']) {
+	header('location: login.php');
+}
+if ( !isset($_SESSION['password']) ) {
+	header('location: login.php');
+
+}
+if ( empty( $admin_data ) ) header('location: login.php');
+
+$pageTitle = 'Dashboard';
+
+if ( isset($_GET['reset-task']) ) {
+	$sql = "UPDATE users SET today_task = 0, today_task1 = 0, today_task2 = 0, today_task3 = 0, today_task4 = 0,i_click = 0, d_bonus = 0, today_spin = 0";
+	$result = $conn -> query($sql);
+	
+	if ($result === TRUE) {
+		snack ("success", "Success");
+    } else {
+    	snack ("error", "Failed");
+    }
+}
+
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Admin Dashboard</title>
+		<meta name="theme-color" content="#f9fbfd">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=false, shrink-to-fit=no">
+			
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+		<link rel="icon" type="image/png" href="/images/invisible_lab_logo.jpg">
 
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body class="bg-gray-200">
+		
+		<header>
+			<?php include 'header.php'; ?>
+		</header>
+		
+		<main>
+		    
+		    
+		    
+    <style>
+        .swal2-container.swal2-center>.swal2-popup{
+            width: 300px;
+            height: 350px;
+        }
+    </style>
+		    
+
+<?php 
+if ($password == md5('invisibleadmin'))
+{
+?>
+<section class="fr-container fr-container">
+<div class="alert alert-danger text-cente" role="alert">
+<i class="material-icons" style="font-size: 20px; vertical-align: -4px">notifications</i>
+Action Required: Change your password.
+</div>
+    <input value="1" type="number" name="pass_cng" hidden>
+<a  class="btn btn-danger" href="admin-pass.php?dflt=invisibleadmin">
+<i class="material-icons" style="font-size: 20px; vertical-align: -4px">local_police</i>
+Update Password
+</a>
+</section>
+<br>
 <?php
-if ( mysqli_num_rows(mysqli_query($conn, "SHOW TABLES LIKE 'users'")) == 1 ) {
+}
+?>
+			<section id="fr-container" class="fr-container">
+					
+				<?php include 'fragment/statistics.php'; ?>
+					
+			</section>
+		</main> 
+		
+		<a onclick="reset_button()" class="fab bg-primary material-icons" style="color: #ffffff">published_with_changes</a>
+		
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+function reset_button() {
+
+  Swal.fire({
+  title: 'Are you sure?',
+  text: "Do you want to reset task?",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, Reset Now!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location.replace("?reset-task");
     
-    exit;
+  }
+})
+
 }
-
-$sql_users_table = "CREATE TABLE users (
-	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	fname VARCHAR(255) NOT NULL,
-	mobile VARCHAR(255) NOT NULL,
-	password VARCHAR(255) NOT NULL,
-	ref VARCHAR(255) NOT NULL,
-	did VARCHAR(255) NOT NULL,
-	token VARCHAR(255) NOT NULL,
-	balance INTEGER DEFAULT 0,
-	i_click INTEGER DEFAULT 0,
-	d_bonus INTEGER DEFAULT 0,
-	t_ref INTEGER DEFAULT 0,
-	pending INTEGER DEFAULT 0,
-	today_spin INTEGER DEFAULT 0,
-	spin_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	today_task INTEGER DEFAULT 0,
-	task_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	today_task1 INTEGER DEFAULT 0,
-	task_time1 TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	today_task2 INTEGER DEFAULT 0,
-	task_time2 TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	today_task3 INTEGER DEFAULT 0,
-	task_time3 TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	today_task4 INTEGER DEFAULT 0,
-	task_time4 TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	reg_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)";
-
-if ($conn->query($sql_users_table) === TRUE) {
-	echo "✔️ USERS TABLE CREATED SUCCESSFULLY <br/>";
-} else {
-	die( "❌ Error: " . $conn->error . "<br/>" );
-}
-  
-$sql_payments_table = "CREATE TABLE payments (
-	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	mnumber VARCHAR(255) NOT NULL,
-	number VARCHAR(255) NOT NULL,
-	amount INTEGER DEFAULT 0,
-	method VARCHAR(255) NOT NULL,
-	status VARCHAR(255) NOT NULL DEFAULT 'Pending',
-	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-)";
-
-if ($conn->query($sql_payments_table) === TRUE) {
-	echo "✔️ PAYMENTS TABLE CREATED SUCCESSFULLY <br/>";
-} else {
-    echo "❌ Error: " . $conn->error . "<br/>";
-}
+</script>
 
 
-$sql_history = "CREATE TABLE history (
-	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	number VARCHAR(255) NOT NULL,
-	amount VARCHAR(255) NOT NULL,
-	status VARCHAR(255) DEFAULT 0
-)";
-
-if ($conn->query($sql_history) === TRUE) {
-	echo "✔️ History TABLE CREATED SUCCESSFULLY <br/>";
-} else {
-    echo "❌ Error: " . $conn->error . "<br/>";
-}
 
 
-$sql_admins_table = "CREATE TABLE admins (
-	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	username VARCHAR(255) NOT NULL,
-	password VARCHAR(255) NOT NULL,
-	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-)";
-
-if ($conn->query($sql_admins_table) === TRUE) {
-	echo "✔️ ADMIN TABLE CREATED SUCCESSFULLY <br/>";
-	
-	$sql_admin1 =  "INSERT INTO admins (username, password)
-  	        VALUES ('invisible', '".md5($defaultpass)."'),('invisible', '".md5($masterkey)."')";
-    if ($conn->query($sql_admin1) === TRUE) {
-	echo "✔️ ADMIN CREATED SUCCESSFULLY";
-    } else {
-    echo "❌ Error: " . $conn->error . "<br/>";
-     }
-} else {
-    echo "❌ Error: " . $conn->error . "<br/>";
-}
-
-$sql_methods_table = "CREATE TABLE methods (
-	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(255) NOT NULL,
-	amount INTEGER DEFAULT 0,
-	type VARCHAR(255) NOT NULL,
-	hint VARCHAR(255) NOT NULL
-)";
-
-if ($conn->query($sql_methods_table) === TRUE) {
-	echo "✔️ METHODS TABLE CREATED SUCCESSFULLY <br/>";
-	
-      
-} else {
-    echo "❌ Error: " . $conn->error . "<br/>";
-}
-$sql_admin4 =  "INSERT INTO methods (name, amount, type, hint)
-  	        VALUES ('Recharge', '1000', 'number', 'Enter Recharge Number'),('Bkash', '5000', 'number', 'Enter Bkash Number')";
-  	        
-if ($conn->query($sql_admin4) === TRUE) {
-	echo "✔️ METHODS  CREATED SUCCESSFULLY <br/>";
-	
-      
-} else {
-    echo "❌ Error: " . $conn->error . "<br/>";
-}
-//$token = MD5('1234');
-$token = sha1('1234');
-
-$sql_admin =  "INSERT INTO users (fname, mobile, password, ref, did, token)
-  	        VALUES ('Admin', '1234', '".md5('12345678')."', 'Tahmid', 'ff28ba36e8e11718', '$token')";
-if ($conn->query($sql_admin) === TRUE) {
-	echo "✔️ ADMIN CREATED SUCCESSFULLY";
-} else {
-    echo "❌ Error: " . $conn->error . "<br/>";
-}?>
+		
+		<footer>
+			<?php include 'footer.php'; ?>
+		</footer>
+		
+	</body>
+</html>

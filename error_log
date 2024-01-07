@@ -1,6 +1,20 @@
-[22-Jul-2022 12:01:47 UTC] PHP Warning:  file_get_contents(../admin/app-data.json): Failed to open stream: No such file or directory in /home/osdevelo/public_html/superpoint/constants.php on line 3
-[22-Jul-2022 12:01:47 UTC] PHP Warning:  Attempt to read property "primary_color" on null in /home/osdevelo/public_html/superpoint/constants.php on line 14
-[22-Jul-2022 12:01:47 UTC] PHP Warning:  Attempt to read property "gradient_color_end" on null in /home/osdevelo/public_html/superpoint/constants.php on line 15
-[22-Jul-2022 12:01:51 UTC] PHP Warning:  file_get_contents(../admin/app-data.json): Failed to open stream: No such file or directory in /home/osdevelo/public_html/superpoint/constants.php on line 3
-[22-Jul-2022 12:01:51 UTC] PHP Warning:  Attempt to read property "primary_color" on null in /home/osdevelo/public_html/superpoint/constants.php on line 14
-[22-Jul-2022 12:01:51 UTC] PHP Warning:  Attempt to read property "gradient_color_end" on null in /home/osdevelo/public_html/superpoint/constants.php on line 15
+[14-Feb-2022 06:36:04 UTC] PHP Warning:  Undefined array key "password" in /home/osdevelo/public_html/superpoint/admin/index.php on line 8
+[14-Feb-2022 06:36:04 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/osdevelo/public_html/superpoint/admin/index.php on line 10
+[14-Feb-2022 06:36:21 UTC] PHP Warning:  Undefined array key "password" in /home/osdevelo/public_html/superpoint/admin/app-settings.php on line 8
+[14-Feb-2022 06:36:21 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/osdevelo/public_html/superpoint/admin/app-settings.php on line 10
+[14-Feb-2022 06:36:21 UTC] PHP Warning:  Undefined array key "password" in /home/osdevelo/public_html/superpoint/admin/app-settings.php on line 36
+[14-Feb-2022 06:37:36 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/osdevelo/public_html/superpoint/admin/app-settings.php on line 10
+[14-Feb-2022 14:34:57 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/osdevelo/public_html/superpoint/admin/app-settings.php on line 10
+[14-Feb-2022 15:31:02 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on bool in /home/osdevelo/public_html/superpoint/admin/pay-users.php:44
+Stack trace:
+#0 {main}
+  thrown in /home/osdevelo/public_html/superpoint/admin/pay-users.php on line 44
+[22-Jul-2022 12:00:56 UTC] PHP Warning:  Undefined array key "password" in /home/osdevelo/public_html/superpoint/admin/index.php on line 8
+[22-Jul-2022 12:00:56 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/osdevelo/public_html/superpoint/admin/index.php on line 10
+[22-Jul-2022 12:01:09 UTC] PHP Warning:  Undefined array key "password" in /home/osdevelo/public_html/superpoint/admin/app-settings.php on line 8
+[22-Jul-2022 12:01:09 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/osdevelo/public_html/superpoint/admin/app-settings.php on line 10
+[22-Jul-2022 12:01:09 UTC] PHP Warning:  Undefined array key "password" in /home/osdevelo/public_html/superpoint/admin/app-settings.php on line 36
+[22-Jul-2022 12:01:47 UTC] PHP Warning:  Undefined array key "password" in /home/osdevelo/public_html/superpoint/admin/index.php on line 8
+[22-Jul-2022 12:01:47 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/osdevelo/public_html/superpoint/admin/index.php on line 10
+[22-Jul-2022 12:02:02 UTC] PHP Warning:  Undefined array key "password" in /home/osdevelo/public_html/superpoint/admin/index.php on line 8
+[22-Jul-2022 12:02:02 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/osdevelo/public_html/superpoint/admin/index.php on line 10
