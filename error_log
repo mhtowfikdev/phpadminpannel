@@ -1,0 +1,6 @@
+[22-Jul-2022 12:01:47 UTC] PHP Warning:  file_get_contents(../admin/app-data.json): Failed to open stream: No such file or directory in /home/osdevelo/public_html/superpoint/constants.php on line 3
+[22-Jul-2022 12:01:47 UTC] PHP Warning:  Attempt to read property "primary_color" on null in /home/osdevelo/public_html/superpoint/constants.php on line 14
+[22-Jul-2022 12:01:47 UTC] PHP Warning:  Attempt to read property "gradient_color_end" on null in /home/osdevelo/public_html/superpoint/constants.php on line 15
+[22-Jul-2022 12:01:51 UTC] PHP Warning:  file_get_contents(../admin/app-data.json): Failed to open stream: No such file or directory in /home/osdevelo/public_html/superpoint/constants.php on line 3
+[22-Jul-2022 12:01:51 UTC] PHP Warning:  Attempt to read property "primary_color" on null in /home/osdevelo/public_html/superpoint/constants.php on line 14
+[22-Jul-2022 12:01:51 UTC] PHP Warning:  Attempt to read property "gradient_color_end" on null in /home/osdevelo/public_html/superpoint/constants.php on line 15
